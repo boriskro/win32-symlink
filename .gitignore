@@ -1,0 +1,5 @@
+*.so
+*.o
+mkmf.log
+Makefile
+*.def

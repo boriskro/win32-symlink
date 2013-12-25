@@ -15,7 +15,7 @@ CLEAN.include(
 )
 
 def make
-  CONFIG['host_os'] =~ /mingw|cygwin/i ? "make" : "nmake"
+  RUBY_PLATFORM =~ /mingw|cygwin/i ? "make" : "nmake"
 end
 
 # CLOBBER.include("lib")

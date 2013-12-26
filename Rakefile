@@ -1,49 +1,24 @@
 #!/usr/bin/env rake
-# require 'bundle/gemtasks'
-require 'rake'
-require 'rake/clean'
+require 'bundler/gem_tasks'
+begin
+  Bundler.setup(:default, :development)
+rescue Bundler::BundlerError => e
+  $stderr.puts e.message
+  $stderr.puts "Run `bundle install` to install missing gems"
+  exit e.status_code
+end
+
+# require 'rubygems'
 require 'rake/testtask'
+require 'rake/clean'
 
+$gemspec = Bundler.load_gemspec('win32-symlink.gemspec')
 
-CLEAN.include(
-  "**/*.gem",
-  "**/*.so",
-  "**/Makefile",
-  "**/*.o",
-  "**/*.def",
-  "**/mkmf.log"
-)
-
-def make
-  RUBY_PLATFORM =~ /mingw|cygwin/i ? "make" : "nmake"
-end
-
-# CLOBBER.include("lib")
-SRC_BASE = 'ext/win32'
-MAKEFILE = SRC_BASE + '/Makefile'
-EXTCONF_RB = SRC_BASE + '/extconf.rb'
-SRC = FileList.new(SRC_BASE+'/*.cpp', SRC_BASE+'/*.c')
-EXT_SO = SRC_BASE+'/symlink.so'
-
-file MAKEFILE => [EXTCONF_RB] do
-  Dir.chdir(SRC_BASE) { ruby 'extconf.rb' }
-end
-
-file EXT_SO => SRC + [MAKEFILE] do
-  Dir.chdir(SRC_BASE) { sh make }
-end
-
-task :config do
-  Dir.chdir(SRC_BASE) { ruby 'extconf.rb' }
-end
-
-task :build => EXT_SO
+CLEAN.include "**/*.gem", "**/*.so", "**/Makefile", "**/*.o", "**/*.def", "**/mkmf.log"
 
 Rake::TestTask.new do |t|
-  task :test => [:build]
-  t.libs << 'ext'
   t.warning = true
-#  t.verbose = true
 end
 
-task :default => [:build, :test]
+load 'tasks/ext.rake'
+task :default => [:compile, :test]

@@ -277,7 +277,7 @@ rb_symlink(VALUE mod, VALUE src, VALUE dest)
 }
 
 extern "C" void
-Init_symlink()
+Init_win32_symlink()
 {
 	VALUE mod_win32;
 	VALUE mod;

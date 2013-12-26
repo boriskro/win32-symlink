@@ -258,7 +258,7 @@ rb_symlink(VALUE mod, VALUE src, VALUE dest)
 
 	if( is_directory(wdest) )
 	{
-		flags = SYMBOLIC_LINK_FLAG_DIRECTORY;
+		flags |= SYMBOLIC_LINK_FLAG_DIRECTORY;
 	}
 	res = create_symbolic_linkW(wsrc, wdest, flags);
 	if( !res )

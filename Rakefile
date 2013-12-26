@@ -1,5 +1,7 @@
-#!/usr/bin/env rake
+# -*- ruby -*-
 require 'bundler/gem_tasks'
+require 'rake/testtask'
+
 begin
   Bundler.setup(:default, :development)
 rescue Bundler::BundlerError => e
@@ -8,17 +10,12 @@ rescue Bundler::BundlerError => e
   exit e.status_code
 end
 
-# require 'rubygems'
-require 'rake/testtask'
-require 'rake/clean'
-
 $gemspec = Bundler.load_gemspec('win32-symlink.gemspec')
-
-CLEAN.include "**/*.gem", "**/*.so", "**/Makefile", "**/*.o", "**/*.def", "**/mkmf.log"
 
 Rake::TestTask.new do |t|
   t.warning = true
 end
 
 load 'tasks/ext.rake'
+
 task :default => [:compile, :test]

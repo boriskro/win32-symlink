@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- ruby -*-
 require File.expand_path('../lib/win32/symlink/version', __FILE__)
 
 Gem::Specification.new do |gem|
@@ -23,7 +23,6 @@ lib/win32/symlink/win32_symlink.so
 tasks/ext.rake
 test/test_win32_symlink.rb
 win32-symlink.gemspec
-
 }
   gem.extensions    = ['ext/win32/extconf.rb']
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})

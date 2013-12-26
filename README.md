@@ -1,7 +1,7 @@
 # Win32::Symlink
 
-Since standard ruby library lacks symlink functions on Windows, this simple
-library attempts to fill the gap.
+Since the standard ruby library lacks symlink functions on Windows, this
+little library attempts to fill the gap.
 
 ## Installation
 
@@ -19,17 +19,10 @@ Or install it yourself as:
 
 ## Usage
 
-This library provides the following functons:
-    readlink
-    symlink?
-    symlink
+This library implements the following functons that mimic their ruby
+counterparts:
 
-These work similar to their counterparts found in the standard `File` module.
+    readlink(link_name) -> file_name
+    symlink?(link_name) -> true or false
+    symlink(old_name, new_name) -> 0
 
-## Contributing
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Added some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request

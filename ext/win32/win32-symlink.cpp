@@ -48,13 +48,13 @@ filecp(void)
 static wchar_t *
 cstr_to_wstr(UINT code_page, const char *str, int clen, int *wstr_len)
 {
-    int len;
+	int len;
 	wchar_t* wstr;
 
-    len = MultiByteToWideChar(code_page, 0, str, clen, NULL, 0);
-    wstr = (wchar_t *)xmalloc(len * sizeof(wchar_t));
+	len = MultiByteToWideChar(code_page, 0, str, clen, NULL, 0);
+	wstr = (wchar_t *)xmalloc(len * sizeof(wchar_t));
 
-    MultiByteToWideChar(code_page, 0, str, clen, wstr, len);
+	MultiByteToWideChar(code_page, 0, str, clen, wstr, len);
 	if( wstr_len )
 		*wstr_len = len;
 	return wstr;

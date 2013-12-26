@@ -1,5 +1,5 @@
+Gemfile.lock
 *.so
-*.o
-mkmf.log
-Makefile
-*.def
+./tmp/
+./pkg/
+reference/

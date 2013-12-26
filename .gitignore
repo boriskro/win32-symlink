@@ -1,5 +1,5 @@
 Gemfile.lock
 *.so
-tmp/
-pkg/
-reference/
+/tmp/
+/pkg/
+/reference/

@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
 Symlink functions for Windows (Vista and above)
 DESC
   gem.summary       = 'symlink functions for Windows'
-  gem.homepage      = ''
+  gem.homepage      = 'https://github.com/boriskro/win32-symlink'
 
   gem.files         = %w{
 Gemfile

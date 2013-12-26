@@ -238,36 +238,36 @@ is_directory(wchar_t* path)
 }
 
 static VALUE
-rb_symlink(VALUE mod, VALUE src, VALUE dest)
+rb_symlink(VALUE mod, VALUE target, VALUE symlink)
 {
 	(void)mod;
 
 	VALUE error = Qnil;
-	wchar_t* wsrc = NULL;
-	wchar_t* wdest = NULL;
+	wchar_t* wtarget = NULL;
+	wchar_t* wsymlink = NULL;
 	BOOL res;
 	DWORD flags = 0;
 
-	src = FilePathValue(src);
-	dest = FilePathValue(dest);
-	src = rb_str_encode_ospath(src);
-	dest = rb_str_encode_ospath(dest);
+	target = FilePathValue(target);
+	symlink = FilePathValue(symlink);
+	target = rb_str_encode_ospath(target);
+	symlink = rb_str_encode_ospath(symlink);
 
-	wsrc = filecp_to_wstr(RSTRING_PTR(src), NULL);
-	wdest = filecp_to_wstr(RSTRING_PTR(dest), NULL);
+	wtarget = filecp_to_wstr(RSTRING_PTR(target), NULL);
+	wsymlink = filecp_to_wstr(RSTRING_PTR(symlink), NULL);
 
-	if( is_directory(wdest) )
+	if( is_directory(wsymlink) )
 	{
 		flags |= SYMBOLIC_LINK_FLAG_DIRECTORY;
 	}
-	res = create_symbolic_linkW(wsrc, wdest, flags);
+	res = create_symbolic_linkW(wsymlink, wtarget, flags);
 	if( !res )
 	{
-		error = make_api_error(RSTRING_PTR(src));
+		error = make_api_error(RSTRING_PTR(target));
 	}
 
-	xfree(wsrc);
-	xfree(wdest);
+	xfree(wtarget);
+	xfree(wsymlink);
 
 	if( !NIL_P(error) )
 	{

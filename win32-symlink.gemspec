@@ -18,6 +18,7 @@ Rakefile
 ext/win32/extconf.rb
 ext/win32/win32-symlink.cpp
 lib/win32/symlink.rb
+lib/win32/filesymlink.rb
 lib/win32/symlink/version.rb
 lib/win32/symlink/win32_symlink.so
 tasks/ext.rake

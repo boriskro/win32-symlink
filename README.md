@@ -22,19 +22,19 @@ Or install it yourself as:
 This library implements the following functons that mimic their ruby
 counterparts:
 
-    readlink(link_name) -> file_name
-    symlink?(link_name) -> true or false
-    symlink(old_name, new_name) -> 0
+    Win32::Symlink.readlink(link_name) -> file_name
+    Win32::Symlink.symlink?(link_name) -> true or false
+    Win32::Symlink.symlink(old_name, new_name) -> 0
 
-### Convinient Usage 
+### 'Portable' Usage
 
-Instead of referencing to the symlink functions in the Win32::Symlink
+Instead of referencing symlink functions in the Win32::Symlink
 module it is possible to extend the Ruby File class and use the
-functions as on other systems, which support symlinks directly. 
+functions as on other systems, which support symlinks directly.
 
 
     require 'win32/filesymlink' if RUBY_PLATFORM.include?('mingw')
-	
+
 	File.symlink('path to source', 'symlink')
 	File.symlink?('symlink')
 	File.readlink('symlink')

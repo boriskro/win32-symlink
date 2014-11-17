@@ -1,5 +1,6 @@
 Gemfile.lock
 *.so
+/*.gem
 /tmp/
 /pkg/
 /reference/

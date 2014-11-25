@@ -199,6 +199,7 @@ win32_readlink(const char* file)
 	return target;
 }
 
+// Win32::Symlink::readlink(file)
 static VALUE
 rb_readlink(VALUE mod, VALUE file)
 {
@@ -208,6 +209,7 @@ rb_readlink(VALUE mod, VALUE file)
 	return win32_readlink(RSTRING_PTR(file));
 }
 
+// Win32::Symlink::symlink?(file)
 static VALUE
 rb_symlink_p(VALUE mod, VALUE file)
 {
@@ -237,6 +239,8 @@ is_directory(wchar_t* path)
 	return false;
 }
 
+
+// Win32::Symlink::symlink(file, symlink)
 static VALUE
 rb_symlink(VALUE mod, VALUE target, VALUE symlink)
 {
@@ -256,7 +260,7 @@ rb_symlink(VALUE mod, VALUE target, VALUE symlink)
 	wtarget = filecp_to_wstr(RSTRING_PTR(target), NULL);
 	wsymlink = filecp_to_wstr(RSTRING_PTR(symlink), NULL);
 
-	if( is_directory(wsymlink) )
+	if( is_directory(wtarget) )
 	{
 		flags |= SYMBOLIC_LINK_FLAG_DIRECTORY;
 	}

@@ -4,6 +4,8 @@ $LOAD_PATH.unshift File.join(File.dirname(File.dirname(__FILE__)), 'ext')
 
 require 'test/unit'
 require 'win32/symlink'
+require 'fileutils'
+
 include Win32
 
 class Errno::E4390 < SystemCallError
@@ -52,8 +54,25 @@ class TC_Win32Symlink < Test::Unit::TestCase
     end
   end
 
+  def test_makelink_directory
+    Dir.chdir(ENV["TMP"]) do
+      Dir.mkdir('symlink-test-directory-target')
+      IO::write('symlink-test-directory-target/simple-file', 'some content')
+
+      Symlink.symlink('symlink-test-directory-target', 'symlink-test-directory-symlink')
+      
+      assert(Symlink.symlink?('symlink-test-directory-symlink'))
+
+      assert(File.readable?('symlink-test-directory-symlink/simple-file'))
+    end
+  end
+
   def teardown
-    Dir.glob(File.join(ENV['TMP'], 'symlink-test*')).each {|f| File::unlink f}
+    tdir = File.join(ENV['TMP'], 'symlink-test*').gsub("\\", '/')
+
+    Dir.glob(tdir).each do |f|
+      FileUtils::rm_rf f
+    end
   end
 
 end
